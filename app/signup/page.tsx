@@ -33,7 +33,7 @@ const SSOLogin = () => {
           <div className="w-32 h-32 mx-auto bg-black border border-white/10 rounded-full 
                         flex items-center justify-center relative z-10">
             <img 
-              src="/apple.png" 
+              src="/appleTransparent.png" 
               alt="MetaLoot Logo" 
               className={`w-20 h-20 ${isSpinning ? 'animate-spin' : ''}`} 
             />
