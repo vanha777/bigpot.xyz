@@ -1,4 +1,4 @@
-import DashboardHeader from '@/app/dashboard/components/DashboardHeader';
+import DashboardHeader from '@/components/DashboardHeader';
 import React from 'react';
 
 interface SimpleSideBarProps {

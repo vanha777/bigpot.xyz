@@ -19,39 +19,36 @@ export async function GET(request: Request) {
     const profileData = JSON.parse(decodedToken) as GoogleProfile
   
     // Check if user exists in Supabase or create new user)
-    let { data, error } = await database.from('subscribers')
+    let { data, error } = await database.from('bigpot_subscibers')
       .select('*')
       .eq('email', profileData.email)
       .single()
     let subscriber = data;
     
     // Update photo if it has changed
-    if (subscriber && profileData.picture !== subscriber.photo) {
-      console.log("updating user photo")
-      const { data: updatedData, error: updateError } = await database
-        .from('subscribers')
-        .update({ photo: profileData.picture })
-        .eq('id', subscriber.id)
-        .select()
-        .single()
+    // if (subscriber && profileData.picture !== subscriber.photo) {
+    //   console.log("updating user photo")
+    //   const { data: updatedData, error: updateError } = await database
+    //     .from('subscribers')
+    //     .update({ photo: profileData.picture })
+    //     .eq('id', subscriber.id)
+    //     .select()
+    //     .single()
       
-      if (!updateError) {
-        subscriber = updatedData
-        console.log("updated user photo", subscriber)
-      }
-    }
+    //   if (!updateError) {
+    //     subscriber = updatedData
+    //     console.log("updated user photo", subscriber)
+    //   }
+    // }
 
     if (data == null) {
       // Create new subscriber
-      const { data, error } = await Db.from('subscribers').insert([
+      const { data, error } = await Db.from('bigpot_subscibers').insert([
         {
           email: profileData.email,
           name: profileData.name,
-          favourite_game: null,
-          studio_name: null,
-          wallet: null,
           referal: null,
-          type: "developer",
+          type: null,
           photo: profileData.picture,
         }
       ]).select().single();
@@ -64,7 +61,7 @@ export async function GET(request: Request) {
       subscriber = data;
     }
     const dashboardUrl = new URL('/signup/thankyou', url.origin)
-    dashboardUrl.searchParams.set('user', JSON.stringify(subscriber))
+    dashboardUrl.searchParams.set('user_id', subscriber.id)
     return NextResponse.redirect(dashboardUrl.toString())
   } catch (error) {
     console.error('Error processing callback:', error)
