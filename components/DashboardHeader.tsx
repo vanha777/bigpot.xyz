@@ -1,7 +1,6 @@
 'use client'
 
 import { useState } from 'react'
-import { IoGameControllerOutline, IoLogoGameControllerB } from "react-icons/io5"
 import { motion } from 'framer-motion'
 import { GameData } from "@/app/utils/AppContext"
 import { useAppContext } from '@/app/utils/AppContext'
